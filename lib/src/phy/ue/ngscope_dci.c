@@ -12,10 +12,12 @@ int srsran_ngscope_unpack_dl_dci_2grant(srsran_ue_dl_t*     q,
                                         srsran_dci_dl_t* dci_dl,
                                         srsran_pdsch_grant_t* dci_dl_grant)
 {
+	/* THESIS DEBUG: initializes the dci: bzero(dci_dl) */
     if (srsran_dci_msg_unpack_pdsch(&q->cell, sf, &cfg->cfg.dci, dci_msg, dci_dl)) {
         //ERROR("Unpacking DL DCI");
         return SRSRAN_ERROR;
     }
+	/* THESIS DEBUG: initializes the grant: bzero(dci_dl_grant) */
     if (srsran_ue_dl_dci_to_pdsch_grant_wo_mimo_yx(q, sf, cfg, dci_dl, dci_dl_grant)) {
         //ERROR("Translate DL DCI to grant");
         return SRSRAN_ERROR;
@@ -135,6 +137,11 @@ void srsran_ngscope_dci_into_array_ul(ngscope_dci_msg_t dci_array[][MAX_CANDIDAT
                                         srsran_dci_ul_t* dci_ul,
                                         srsran_pusch_grant_t* dci_ul_grant)
 {
+
+    if (dci_ul_grant->tb.tbs >= 1000000) {
+        printf("<DEBUG> before copying srsran to ngscope, UL TBS >= 1000000\n");
+	/* THESIS DEBUG: The UL TBS issue is present here already!!! */
+    }
     dci_array[i][j].rnti    = dci_ul->rnti;
     dci_array[i][j].prb     = dci_ul_grant->L_prb;
     dci_array[i][j].harq    = 0;

@@ -31,7 +31,7 @@ void srsran_ngscope_tree_copy_dci_fromArray2PerSub(ngscope_tree_t* q,
 			//if(dci_array[format][idx].rnti == 2867){
 			//	printf("COPY RNTI: L:%d ncce:%d\n", dci_array[format][idx].loc.L, dci_array[format][idx].loc.ncce);
 			//}
-        }
+      }
     }else{
         if(dci_per_sub->nof_dl_dci < MAX_DCI_PER_SUB){
             // Downlink dci messages (we only record maximum of 10 message per subframe )

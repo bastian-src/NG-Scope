@@ -1811,6 +1811,10 @@ void copy_single_ul_dci(ngscope_dci_msg_t* 			dci_array,
 
     // transport block 1
     dci_array->tb[0].mcs      = dci_ul_grant->tb.mcs_idx;
+    /* THESIS DEBUG -> BUT; this method is used in singleUE mode only
+     *
+     * srsran dci_ul_grant is "int" and ngscope dci_array is u32 -> conversion error?!!!
+     */
     dci_array->tb[0].tbs      = dci_ul_grant->tb.tbs;
     dci_array->tb[0].rv       = dci_ul_grant->tb.rv;
     //dci_array->tb[0].ndi      = dci_ul_grant->tb.ndi;
@@ -1899,6 +1903,9 @@ int srsran_ue_decode_dci_yx(srsran_ue_dl_t*     q,
 			return SRSRAN_ERROR;
 		}else{
 			copy_single_ul_dci(&dci_res->ul_msg[dci_res->nof_ul_dci], loc, 0, 0, &dci_ul[0], &dci_ul_grant);
+			if (dci_res->ul_msg[dci_res->nof_ul_dci].tb[0].tbs >= 1000000) {
+			    printf("<DEBUG> kinda after copying srsran to ngscope, UL TBS >= 1000000\n");
+			}
 			dci_res->nof_ul_dci += 1; 
 		}
 		//printf("FOUND UL DCI: tti:%d\tnof_prb:%d\tnof_tb:%d\ttbs1:%d\ttbs2:%d\tmcs1:%d\tmcs2:%d\n", sf->tti, dci_res->ul_msg[0].prb, 

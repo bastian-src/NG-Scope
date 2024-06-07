@@ -21,7 +21,7 @@ void unpack_dci_message_vec(srsran_ue_dl_t*        q,
 							ngscope_tree_t* 	   tree)
 {
 	srsran_dci_ul_t       dci_ul;
-  	srsran_pusch_grant_t  dci_ul_grant;
+	srsran_pusch_grant_t  dci_ul_grant;
 
 	srsran_dci_dl_t       dci_dl;
 	srsran_pdsch_grant_t  dci_dl_grant;
@@ -38,6 +38,7 @@ void unpack_dci_message_vec(srsran_ue_dl_t*        q,
 			//}
 			if(dci_msg[j].format == SRSRAN_DCI_FORMAT0){
 				//Upack the uplink dci to uplink grant
+				/* THESIS DEBUG: The error might be introduced in the unpack_ul_dci function */
 				if(srsran_ngscope_unpack_ul_dci_2grant(q, sf, cfg, pdsch_cfg, &dci_msg[j],  
 								&dci_ul, &dci_ul_grant) == SRSRAN_SUCCESS){
           // dci_ul_grant to tree->dci_array
@@ -269,7 +270,9 @@ int srsran_ngscope_search_all_space_array_yx(srsran_ue_dl_t*        q,
 	}//end of for
 	blk_idx++;
   }//end of while 
+   //
 
+  /* THESIS DEBUG: dci_per_sub UL TBS are already infected here */
   srsran_ngscope_tree_copy_rnti(tree, dci_per_sub, targetRNTI);
   //srsran_ngscope_dci_prune_ret(dci_per_sub); 
 

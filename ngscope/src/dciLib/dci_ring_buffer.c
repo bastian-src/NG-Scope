@@ -188,7 +188,6 @@ int push_dci_to_remote(sf_status_t* q, int cell_idx, uint16_t targetRNTI, int re
     }
   }
 
-  printf("UE DCI dl_tbs: %d ul_tbs:%d \n", ue_dci.dl_tbs, ue_dci.ul_tbs);
   sock_send_single_dci(&dci_sink_serv, &ue_dci, 0);
 
   return 1;
