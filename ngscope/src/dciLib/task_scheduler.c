@@ -543,14 +543,14 @@ void* task_scheduler_thread(void* p){
         }
 	else if (ret == 0) {
            if (print_delay++ >= 100) {
-                printf("\r🔍 searching pss");
+                //printf("\r🔍 searching pss");
 		fflush(stdout);
                 print_delay = 0;
             }
         }
 	else if(ret == 1) {
             if (print_delay++ >= 100) {
-                printf("\r%lc                ", (wchar_t) (0x25F3 - (print_index++ % 4)));
+                //printf("\r%lc                ", (wchar_t) (0x25F3 - (print_index++ % 4)));
                 fflush(stdout);
                 print_delay = 0;
             }

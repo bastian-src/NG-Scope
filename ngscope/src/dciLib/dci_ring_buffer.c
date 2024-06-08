@@ -342,12 +342,16 @@ void update_cell_status_header(ngscope_cell_dci_ring_buffer_t* q, int remote_soc
     q->sub_stat[index].filled = false;
     // TODO: Check which message type to send
     // push_dci_to_remote(&q->sub_stat[index], q->cell_idx, q->targetRNTI, remote_sock);
+    if (timestamp_us() - q->sub_stat[index].timestamp_us > 5000) {
+        printf("DEBUG [thesis] dci time diff: %ld\n", (timestamp_us() - q->sub_stat[index].timestamp_us));
+    }
     push_rnti_dci_to_remote(&q->sub_stat[index], q->cell_idx, remote_sock);
     // fprintf(fd,"%d\t%d\t%d\t%d\t\n", q->sub_stat[index].tti, q->cell_header, index, tti);
     // printf("push tti:%d index:%d\n", q->sub_stat[index].tti, index);
     //  update the index
     index = (index + 1) % q->buf_size;
   }
+  fflush(stdout);
   return;
 }
 
